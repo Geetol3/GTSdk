@@ -16,7 +16,7 @@ import com.gtdev5.geetolsdk.mylibrary.beans.ResultBean;
 import com.gtdev5.geetolsdk.mylibrary.beans.UpdateBean;
 import com.gtdev5.geetolsdk.mylibrary.callback.BaseCallback;
 import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
-import com.gtdev5.geetolsdk.mylibrary.http.HttpUtils;
+import com.gtdev5.geetolsdk.mylibrary.http.Base64HttpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.PermissionUtils;
@@ -117,11 +117,10 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
     private void registerId() {
         if (isFirstRegister) {
             if (Utils.isNetworkAvailable(this)) {
-                HttpUtils.getInstance().postRegister(new BaseCallback<ResultBean>() {
+                Base64HttpUtils.getInstance().postRegister(new BaseCallback<ResultBean>() {
                     @Override
                     public void onRequestBefore() {
                     }
-
                     @Override
                     public void onFailure(Request request, Exception e) {
                         showRestartDialog();
@@ -162,7 +161,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
     private void getUpdateInfo() {
         UpdateBean updateBean = DataSaveUtils.getInstance().getUpdate();
         if (Utils.isNetworkAvailable(this)) {
-            HttpUtils.getInstance().postUpdate(new BaseCallback<UpdateBean>() {
+            Base64HttpUtils.getInstance().postUpdate(new BaseCallback<UpdateBean>() {
                 @Override
                 public void onRequestBefore() {
                 }
@@ -219,7 +218,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
         if (Utils.isNetworkAvailable(this)) {
             if (!TextUtils.isEmpty(Utils.getUserId())) {
                 // 登录过
-                HttpUtils.getInstance().checkLogin(new BaseCallback<ResultBean>() {
+                Base64HttpUtils.getInstance().checkLogin(new BaseCallback<ResultBean>() {
                     @Override
                     public void onRequestBefore() {}
 
@@ -254,7 +253,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
         String ossData = SpUtils.getInstance().getString(Contants.ALI_OSS_PARAM);
         // 若已经获取过阿里oss数据，则无需再获取
         if (!TextUtils.isEmpty(ossData) && !ossData.equals("null")) return;
-        HttpUtils.getInstance().getAliOss(new BaseCallback<ResultBean>() {
+        Base64HttpUtils.getInstance().getAliOss(new BaseCallback<ResultBean>() {
             @Override
             public void onRequestBefore() {
             }

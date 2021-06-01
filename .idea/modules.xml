@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/GeeSdk.iml" filepath="$PROJECT_DIR$/.idea/GeeSdk.iml" group="GeeSdk" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="GeeSdk/app" />
+      <module fileurl="file://$PROJECT_DIR$/geetolsdk/geetolsdk.iml" filepath="$PROJECT_DIR$/geetolsdk/geetolsdk.iml" group="GeeSdk/geetolsdk" />
+    </modules>
+  </component>
+</project>
