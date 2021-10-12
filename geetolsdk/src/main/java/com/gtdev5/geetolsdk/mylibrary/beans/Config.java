@@ -10,6 +10,15 @@ import java.io.Serializable;
 
 public class Config implements Serializable {
     private String wxid;
+    private String wxsecret;
+
+    public String getWxsecret() {
+        return wxsecret;
+    }
+
+    public void setWxsecret(String wxsecret) {
+        this.wxsecret = wxsecret;
+    }
 
     public String getWxid() {
         return wxid;
