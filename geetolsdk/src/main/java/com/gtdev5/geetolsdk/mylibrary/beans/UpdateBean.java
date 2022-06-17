@@ -16,6 +16,7 @@ public class UpdateBean implements Serializable {
     private String msg;
     private String code;
     private List<Ads> ads;          //广告信息  不同位置的广告信息都在此 Pos表示不同位置  需后台设置
+    private List<List<Nads>> nads;  //故事系列专用广告
     private List<Gds> gds;          //商品信息（会员）
     private List<Swt> swt;           //开关   需要后台设置
     private Contract contract;        //客服联系信息
@@ -58,6 +59,14 @@ public class UpdateBean implements Serializable {
 
     public void setAds(List<Ads> ads) {
         this.ads = ads;
+    }
+
+    public List<List<Nads>> getNads() {
+        return nads;
+    }
+
+    public void setNads(List<List<Nads>> nads) {
+        this.nads = nads;
     }
 
     public List<Gds> getGds() {

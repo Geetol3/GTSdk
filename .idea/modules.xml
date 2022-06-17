@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GTSdk.iml" filepath="$PROJECT_DIR$/.idea/modules/GTSdk.iml" group="GTSdk" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GTSdk-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GTSdk-app.iml" group="GTSdk/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/GeeSdk.iml" filepath="$PROJECT_DIR$/.idea/GeeSdk.iml" group="GeeSdk" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="GeeSdk/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geetolsdk/com.github.Zeoye-geetolsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/geetolsdk/com.github.Zeoye-geetolsdk.iml" group="GTSdk/geetolsdk" />
-      <module fileurl="file://$PROJECT_DIR$/geetolsdk/geetolsdk.iml" filepath="$PROJECT_DIR$/geetolsdk/geetolsdk.iml" group="GeeSdk/geetolsdk" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GTSdk.iml" filepath="$PROJECT_DIR$/.idea/GTSdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GTSdk.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GTSdk.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geetolsdk/GTSdk.geetolsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/geetolsdk/GTSdk.geetolsdk.iml" />
     </modules>
   </component>
 </project>
