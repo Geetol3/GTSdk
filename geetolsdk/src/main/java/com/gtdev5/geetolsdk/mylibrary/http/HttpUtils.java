@@ -20,6 +20,7 @@ import com.gtdev5.geetolsdk.mylibrary.util.CPResourceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.GsonUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.MapUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.SpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.Utils;
@@ -256,7 +257,7 @@ public class HttpUtils {
         RequestBody requestBody = null;
         FormBody.Builder builder = new FormBody.Builder();
         resultMap = sortMapByKey(map);
-        Log.e("请求参数：", "map:" + resultMap.toString());
+        LogUtils.e("==========HttpUtils==========请求参数map:" + resultMap.toString());
         StringBuilder str = new StringBuilder();
         int num = 0;
         boolean isFirst = true;
@@ -579,7 +580,7 @@ public class HttpUtils {
                     //返回成功回调
                     try {
                         String result = response.body().string();
-                        Log.e("请求返回数据：", result);
+                        LogUtils.e("==========HttpUtils==========请求返回数据："+result);
                         if (requestType.equals(API.USER_LOGIN) || requestType.equals(API.USER_LOGIN_CODE)) {
                             // 保存用户信息
                             LoginInfoBean info = GsonUtils.getFromClass(result, LoginInfoBean.class);
@@ -595,7 +596,7 @@ public class HttpUtils {
                                 if (jsonObject.getBoolean("issucc")) {
                                     String data = jsonObject.getString("data");
                                     if (!TextUtils.isEmpty(data)) {
-                                        Log.e("请求返回数据", "阿里云数据：" + data);
+                                        LogUtils.e("==========HttpUtils==========请求返回数据,阿里云数据："+data);
                                         Utils.setAliOssParam(data);
                                     }
                                 }
@@ -648,7 +649,7 @@ public class HttpUtils {
      */
     private Request getRequest(String url, Map<String, String> params) {
         //可以从这么划分get和post请求，暂时只支持post
-        Log.e("请求参数：", "url:" + url);
+        LogUtils.e("==========HttpUtils==========请求参数url:"+url);
         return new Request.Builder().url(url).post(getRequestBody(params)).build();
     }
 
