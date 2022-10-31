@@ -101,6 +101,20 @@ public class HttpUtils {
      * @param paramKey   请求参数
      * @param paramValue 请求值
      */
+    public static void externalHttpsNetWorkRequest(final DataCallBack callBack, final String url, final int type,
+                                           final String[] paramKey, final Object[] paramValue) {
+        getInstance().external_httpsNetWorkRequest(callBack, url, type, paramKey, paramValue);
+    }
+
+    /**
+     * 提供对外调用的请求接口
+     *
+     * @param callBack   回调接口
+     * @param url        路径
+     * @param type       请求类型
+     * @param paramKey   请求参数
+     * @param paramValue 请求值
+     */
     public static void httpsNetWorkRequest(final DataCallBack callBack, final String url, final int type,
                                            final String[] paramKey, final Object[] paramValue) {
         getInstance().inner_httpsNetWorkRequest(callBack, url, type, paramKey, paramValue);
@@ -188,6 +202,111 @@ public class HttpUtils {
                     requestBody = multipartBody.build();
                 }
                 request = new Request.Builder().url(commonUrl + url).post(requestBody).build();
+                break;
+            default:
+                break;
+        }
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                deliverDataFailure(request, e, callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = null;
+                try {
+                    result = response.body().string();
+                } catch (IOException e) {
+                    deliverDataFailure(request, e, callBack);
+                }
+                deliverDataSuccess(result, callBack);
+            }
+        });
+    }
+
+    /**
+     * 外部处理请求的方法
+     *
+     * @param callBack   回调接口
+     * @param url        路径
+     * @param type       请求类型
+     * @param paramKey   请求参数
+     * @param paramValue 请求值
+     */
+    private void external_httpsNetWorkRequest(final DataCallBack callBack, final String url, final int type,
+                                           final String[] paramKey, final Object[] paramValue) {
+        RequestBody requestBody = null;
+        FormBody.Builder builder = new FormBody.Builder();
+        Map<String, String> map = new TreeMap<String, String>();
+        map.put("appid", CPResourceUtils.getString("appid"));
+        map.put("sign", null);
+        map.put("device", DeviceUtils.getSpDeviceId());
+        if (paramKey != null) {
+            for (int i = 0; i < paramKey.length; i++) {
+                map.put(paramKey[i], String.valueOf(paramValue[i]));
+            }
+            resultMap = sortMapByKey(map);
+        }
+        String str = "";
+        int num = 0;
+        boolean isFirst = true;
+        switch (type) {
+            case GET_HTTP_TYPE:
+                request = new Request.Builder().url(url).build();
+                break;
+            case POST_HTTP_TYPE:
+                /**
+                 * 循环遍历获取key值，拼接sign字符串
+                 */
+                for (Map.Entry<String, String> entry : resultMap.entrySet()) {
+                    if (entry.getValue() == null) {
+                        continue;
+                    }
+                    num++;
+                    if (isFirst) {
+                        str += entry.getKey() + "=" + Base64.encodeToString(entry.getValue().getBytes(), Base64.DEFAULT).trim();
+                        isFirst = !isFirst;
+                    } else {
+                        str = str.trim();
+                        str += "&" + entry.getKey() + "=" + Base64.encodeToString(entry.getValue().getBytes(), Base64.DEFAULT).trim();
+                        if (num == resultMap.size() - 1) {
+                            str += "&" + "key" + "=" + CPResourceUtils.getString("appkey");
+                        }
+                    }
+                }
+                str = str.replace("\n", "");//去除换行
+                str = str.replace("\\s", "");//去除空格
+                isFirst = !isFirst;
+                alga.update(str.getBytes());
+                /**
+                 * 循环遍历value值，添加到表单
+                 */
+                for (Map.Entry<String, String> entry : resultMap.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    if (value == null) {
+                        value = "";
+                    }
+                    if (key.equals("sign")) {
+                        value = Utils.byte2hex(alga.digest());
+                    } else if (key.equals("key")) {
+                        continue;
+                    }
+                    builder.add(key, value);
+                }
+                requestBody = builder.build();
+                request = new Request.Builder().url(url).post(requestBody).build();
+                break;
+            case UPLOAD_HTTP_TYPE:
+                MultipartBody.Builder multipartBody = new MultipartBody.Builder("-----").setType(MultipartBody.FORM);
+                if (paramKey != null && paramValue != null) {
+                    for (int i = 0; i < paramKey.length; i++) {
+                        multipartBody.addFormDataPart(paramKey[i], String.valueOf(paramValue[i]));
+                    }
+                    requestBody = multipartBody.build();
+                }
+                request = new Request.Builder().url(url).post(requestBody).build();
                 break;
             default:
                 break;
