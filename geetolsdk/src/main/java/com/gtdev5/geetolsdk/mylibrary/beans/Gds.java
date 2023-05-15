@@ -33,6 +33,11 @@ public class Gds implements Serializable {
     private String xwprice;
     private String payway;
 
+    //谷歌支付
+    private	String code; //"phototranslation_one_month_vip",
+    private String countway;//"countway": 2,
+    private String ratio; //"ratio": 0.00000
+
     /*private String value;               //会员等级
     private String remark;           //标记
     private String original;          //原价
@@ -131,4 +136,27 @@ public class Gds implements Serializable {
         this.original = original;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCountway() {
+        return countway;
+    }
+
+    public void setCountway(String countway) {
+        this.countway = countway;
+    }
+
+    public String getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(String ratio) {
+        this.ratio = ratio;
+    }
 }
