@@ -725,7 +725,7 @@ public class HttpUtils {
                         } else if (requestType.equals(API.UPDATE)) {
                             // 获取所有数据
                             UpdateBean updateBean = GsonUtils.getFromClass(result, UpdateBean.class);
-                            if (updateBean != null) {
+                            if (updateBean != null&& updateBean.getIssucc()) {
                                 DataSaveUtils.getInstance().saveAppData(updateBean);
                             }
                         } else if (requestType.equals(API.USER_LOGIN_CHECK)) {
